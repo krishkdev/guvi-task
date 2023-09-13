@@ -13,9 +13,10 @@ const Profile = () => {
   }, []);
 
   const fetchData = async () => {
+    const url = `${import.meta.env.VITE_BASE_URL}api/users/profile`;
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/users/profile",
+        url,
         { message: "Hello" },
         {
           headers: {
@@ -31,17 +32,14 @@ const Profile = () => {
     }
   };
   const updateData = async () => {
+    const url = `${import.meta.env.VITE_BASE_URL}api/users/profile`;
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/users/profile",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setData(response.data);
       console.log(response.data);
     } catch (error) {

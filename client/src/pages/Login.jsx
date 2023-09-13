@@ -10,11 +10,10 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (data) => {
+    const url = `${import.meta.env.VITE_BASE_URL}api/users/login`;
+    console.log(url);
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/users/login",
-        data
-      );
+      const res = await axios.post(url, data);
       setToken(res.data.token);
       localStorage.setItem("data", { ...res.data });
       navigate("/", { replace: true });

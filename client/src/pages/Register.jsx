@@ -8,8 +8,9 @@ function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async (data) => {
+    const url = `${import.meta.env.VITE_BASE_URL}api/users`;
     try {
-      const res = await axios.post("http://localhost:3000/api/users", data);
+      const res = await axios.post(url, data);
       setToken(res.data.token);
       localStorage.setItem("data", { ...res.data });
       navigate("/", { replace: true });
