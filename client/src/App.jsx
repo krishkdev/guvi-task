@@ -1,10 +1,16 @@
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./components/Register/Register";
+import Login from "./components/Login/Login";
 
 function App() {
   return (
-    <>
-      <h1>The legend is back 🔥😎</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
