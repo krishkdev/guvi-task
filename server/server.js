@@ -14,6 +14,15 @@ const app = express(); // main thing
 
 app.use(express.json()); // to accept json data
 
+// CORS
+var allowCrossDomain = function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  next();
+};
+
+app.use(allowCrossDomain);
+
 app.use("/api/users", userRoutes);
 
 // --------------------------deployment------------------------------

@@ -1,7 +1,24 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../provider/authProvider";
+import axios from "axios";
 
-function Login() {
+function Register() {
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+
+  const handleRegister = async (data) => {
+    try {
+      const res = await axios.post("http://localhost:3000/api/users", data);
+      setToken(res.data.token);
+      localStorage.setItem("data", { ...res.data });
+      navigate("/", { replace: true });
+      console.log(res);
+    } catch {
+      console.error;
+      alert("Error happened");
+    }
+  };
   const {
     register,
     handleSubmit,
@@ -9,6 +26,8 @@ function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
+    handleRegister(data);
+
     console.log(data);
   };
 
@@ -24,6 +43,17 @@ function Login() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
+            type="text"
+            {...register("name", { required: true })}
+            placeholder="Full name"
+          />
+          {errors.name && (
+            <p className="text-red-600 hover:underline hover:underline-offset-4">
+              Name is required
+            </p>
+          )}
+          <input
+            className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mt-4"
             type="email"
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             placeholder="Email Address"
@@ -49,16 +79,16 @@ function Login() {
               className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
               type="submit"
             >
-              Login
+              Register
             </button>
           </div>
           <div className="mt-4 font-semibold text-sm text-slate-500 text-center md:text-left">
-            Dont have an account?{" "}
+            Have an account?{" "}
             <Link
               className="text-red-600 hover:underline hover:underline-offset-4"
-              to="register"
+              to="/login"
             >
-              Register
+              Login
             </Link>
           </div>
         </form>
@@ -67,4 +97,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
