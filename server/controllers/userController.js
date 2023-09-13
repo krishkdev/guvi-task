@@ -65,6 +65,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
+    user.bio = req.body.bio || user.bio;
+    user.age = req.body.age || user.age;
+    user.mobile = req.body.mobile || user.mobile;
     if (req.body.password) {
       user.password = req.body.password;
     }
@@ -75,6 +78,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
+      bio: updatedUser.bio,
+      age: updatedUser.age,
+      mobile: updatedUser.mobile,
       token: generateToken(updatedUser._id),
     });
   } else {

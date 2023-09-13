@@ -16,14 +16,17 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    age: {
-      type: Number,
-    },
-    gender: {
+    bio: {
       type: String,
+      default: "",
     },
     mobile: {
       type: String,
+      default: "",
+    },
+    age: {
+      type: String,
+      default: "",
     },
   },
   {
